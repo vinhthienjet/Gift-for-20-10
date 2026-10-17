@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>For My Sunshine 🌻</title>
+
+    <meta name="theme-color" content="#87CEEB">
+    <meta name="description" content="Một món quà nhỏ dành riêng cho em.">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<main>
+    <!-- MÀN HÌNH 1: CÁNH ĐỒNG HOA HƯỚNG DƯƠNG -->
+    <section id="welcome-screen" class="screen welcome-screen">
+
+        <div class="sky">
+            <div class="sun"></div>
+
+            <div class="cloud cloud-one"></div>
+            <div class="cloud cloud-two"></div>
+            <div class="cloud cloud-three"></div>
+
+            <div class="welcome-content">
+                <p class="eyebrow">Món quà nhỏ của anh</p>
+
+                <h1>
+                    Chúc cục dàng của anh
+                    <span>một ngày 20/10 thật vui vẻ</span>
+                </h1>
+
+                <p class="welcome-description">
+                    Mong em luôn rạng rỡ như những đóa hướng dương
+                    dưới bầu trời đầy nắng. 💛
+                </p>
+
+                <button id="open-gift-btn" class="primary-button">
+                    Ấn để xem món quà nho nhỏ của anh dành cho em nhé
+                    <span aria-hidden="true">♡</span>
+                </button>
+
+                <p class="scroll-hint">
+                    🌻
+                </p>
+            </div>
+        </div>
+
+        <!-- Cánh đồng được tạo bằng CSS và các bông hoa -->
+        <div class="field field-back"></div>
+        <div class="field field-middle"></div>
+        <div class="field field-front"></div>
+
+        <div class="sunflower-field" aria-hidden="true">
+            <span class="flower flower-1">🌻</span>
+            <span class="flower flower-2">🌻</span>
+            <span class="flower flower-3">🌻</span>
+            <span class="flower flower-4">🌻</span>
+            <span class="flower flower-5">🌻</span>
+            <span class="flower flower-6">🌻</span>
+            <span class="flower flower-7">🌻</span>
+            <span class="flower flower-8">🌻</span>
+            <span class="flower flower-9">🌻</span>
+            <span class="flower flower-10">🌻</span>
+            <span class="flower flower-11">🌻</span>
+            <span class="flower flower-12">🌻</span>
+            <span class="flower flower-13">🌻</span>
+            <span class="flower flower-14">🌻</span>
+            <span class="flower flower-15">🌻</span>
+            <span class="flower flower-16">🌻</span>
+        </div>
+
+    </section>
+
+    <!-- MÀN HÌNH 2: BỐN MÓN QUÀ -->
+    <section id="gift-menu" class="screen gift-menu hidden">
+
+        <div class="menu-heading">
+            <p class="eyebrow">Anh yêu em</p>
+
+            <h2>Những món quà nhỏ dành cho em 🌻</h2>
+
+            <p>
+                Mỗi món quà là một điều anh muốn gửi đến em.
+                Hãy chọn một món nhé!
+            </p>
+        </div>
+
+        <div class="gift-grid">
+
+            <button class="gift-card music-card"
+                    data-gift="music">
+                <span class="gift-icon" aria-hidden="true">🎵</span>
+                <span class="gift-name">Nhạc</span>
+                <span class="gift-description">
+                        Những giai điệu dành cho em
+                    </span>
+            </button>
+
+            <button class="gift-card letter-card"
+                    data-gift="letter">
+                <span class="gift-icon" aria-hidden="true">💌</span>
+                <span class="gift-name">Thư</span>
+                <span class="gift-description">
+                        Những lời anh muốn nói
+                    </span>
+            </button>
+
+            <button class="gift-card photo-card"
+                    data-gift="photos">
+                <span class="gift-icon" aria-hidden="true">📷</span>
+                <span class="gift-name">Ảnh</span>
+                <span class="gift-description">
+                        Những khoảnh khắc của chúng mình
+                    </span>
+            </button>
+
+            <button class="gift-card flower-card"
+                    data-gift="flower">
+                <span class="gift-icon" aria-hidden="true">🌻</span>
+                <span class="gift-name">Quà</span>
+                <span class="gift-description">
+                        Một bông hoa dành riêng cho em
+                    </span>
+            </button>
+
+        </div>
+
+        <button id="back-home-btn" class="back-button">
+            ← Quay lại cánh đồng hoa
+        </button>
+
+        <!-- Khu vực mở nội dung món quà ở các giai đoạn tiếp theo -->
+        <div id="gift-detail" class="gift-detail hidden"
+             aria-live="polite">
+        </div>
+
+    </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="js/sunflower-3d.js"></script>
+<script src="js/music-player.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

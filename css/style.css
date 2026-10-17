@@ -1,0 +1,1533 @@
+
+/* ==============================
+   GLOBAL STYLES
+================================ */
+
+:root {
+    --sky-blue: #87ceeb;
+    --light-blue: #e8f8ff;
+    --deep-blue: #315c76;
+    --sunflower-yellow: #ffd45c;
+    --grass-green: #4f9b55;
+    --paper-white: #fffdf7;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--deep-blue);
+    background: linear-gradient(
+            180deg,
+            #dff5ff 0%,
+            #f8fcff 100%
+    );
+}
+
+button {
+    font-family: inherit;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.screen {
+    position: relative;
+    min-height: 100vh;
+}
+
+/* ==============================
+   WELCOME SCREEN
+================================ */
+
+.welcome-screen {
+    min-height: 100vh;
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(
+            180deg,
+            #87ceeb 0%,
+            #c6edff 60%,
+            #eaf9ff 100%
+    );
+}
+
+.sky {
+    position: absolute;
+    inset: 0 0 22% 0;
+    overflow: hidden;
+    background: linear-gradient(
+            180deg,
+            #75c7ed 0%,
+            #c4ecff 100%
+    );
+}
+
+.sun {
+    position: absolute;
+    top: 9%;
+    right: 13%;
+    width: clamp(65px, 10vw, 110px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #fff1a8;
+    box-shadow:
+            0 0 35px rgba(255, 237, 155, 0.65),
+            0 0 85px rgba(255, 245, 190, 0.45);
+    animation: sunGlow 4s ease-in-out infinite;
+}
+
+.cloud {
+    position: absolute;
+    width: 110px;
+    height: 35px;
+    border-radius: 40px;
+    background: rgba(255, 255, 255, 0.8);
+    filter: blur(0.3px);
+    animation: cloudDrift 18s ease-in-out infinite alternate;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    bottom: 8px;
+    border-radius: 50%;
+    background: inherit;
+}
+
+.cloud::before {
+    left: 18px;
+    width: 45px;
+    height: 45px;
+}
+
+.cloud::after {
+    right: 18px;
+    width: 55px;
+    height: 55px;
+}
+
+.cloud-one {
+    top: 18%;
+    left: 9%;
+}
+
+.cloud-two {
+    top: 29%;
+    right: 18%;
+    transform: scale(0.75);
+    animation-delay: -6s;
+}
+
+.cloud-three {
+    top: 9%;
+    left: 43%;
+    transform: scale(0.55);
+    animation-delay: -11s;
+}
+
+.welcome-content {
+    position: absolute;
+    z-index: 5;
+    top: 43%;
+    left: 50%;
+    width: min(850px, 90%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    animation: welcomeAppear 1s ease both;
+}
+
+.eyebrow {
+    margin-bottom: 18px;
+    color: #376d87;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+}
+
+.welcome-content h1 {
+    color: #285875;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.3;
+    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.45);
+}
+
+.welcome-content h1 span {
+    display: block;
+    margin-top: 8px;
+    color: #fffdf5;
+    text-shadow: 0 2px 12px rgba(55, 109, 135, 0.2);
+}
+
+.welcome-description {
+    max-width: 570px;
+    margin: 22px auto;
+    color: #35677e;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    line-height: 1.8;
+}
+
+.primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    max-width: 100%;
+    margin-top: 10px;
+    padding: 15px 26px;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 40px;
+    background: linear-gradient(135deg, #fffdf6, #fff0c4);
+    color: #426b80;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(50, 105, 130, 0.14);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.primary-button span {
+    color: #db7b8c;
+    font-size: 1.5rem;
+}
+
+.primary-button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 13px 30px rgba(50, 105, 130, 0.2);
+}
+
+.scroll-hint {
+    margin-top: 24px;
+    color: #477b91;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+/* ==============================
+   SUNFLOWER FIELD
+================================ */
+
+.field {
+    position: absolute;
+    right: -5%;
+    bottom: -4%;
+    left: -5%;
+    border-radius: 50% 50% 0 0 / 18% 18% 0 0;
+}
+
+.field-back {
+    z-index: 1;
+    height: 31%;
+    background: #8bc878;
+    transform: rotate(-2deg);
+}
+
+.field-middle {
+    z-index: 2;
+    height: 24%;
+    background: #65ae62;
+    transform: rotate(2deg);
+}
+
+.field-front {
+    z-index: 3;
+    height: 16%;
+    background: #398c4b;
+    transform: rotate(-1deg);
+}
+
+.sunflower-field {
+    position: absolute;
+    z-index: 4;
+    inset: 0;
+    pointer-events: none;
+}
+
+.flower {
+    position: absolute;
+    bottom: var(--bottom, 9%);
+    left: var(--left, 10%);
+    font-size: clamp(1.5rem, 4vw, 3.5rem);
+    transform-origin: bottom center;
+    animation: flowerSway 3s ease-in-out infinite;
+}
+
+.flower-1  { --left: 2%;  --bottom: 9%;  animation-delay: -1s; }
+.flower-2  { --left: 9%;  --bottom: 19%; animation-delay: -2s; }
+.flower-3  { --left: 16%; --bottom: 7%;  animation-delay: -0.5s; }
+.flower-4  { --left: 23%; --bottom: 15%; animation-delay: -1.5s; }
+.flower-5  { --left: 30%; --bottom: 6%;  animation-delay: -2.5s; }
+.flower-6  { --left: 37%; --bottom: 17%; animation-delay: -0.8s; }
+.flower-7  { --left: 44%; --bottom: 8%;  animation-delay: -1.8s; }
+.flower-8  { --left: 51%; --bottom: 19%; animation-delay: -0.3s; }
+.flower-9  { --left: 58%; --bottom: 7%;  animation-delay: -2.2s; }
+.flower-10 { --left: 65%; --bottom: 16%; animation-delay: -1.2s; }
+.flower-11 { --left: 72%; --bottom: 8%;  animation-delay: -2.8s; }
+.flower-12 { --left: 79%; --bottom: 19%; animation-delay: -0.6s; }
+.flower-13 { --left: 86%; --bottom: 6%;  animation-delay: -1.6s; }
+.flower-14 { --left: 93%; --bottom: 15%; animation-delay: -0.9s; }
+.flower-15 { --left: 5%;  --bottom: 28%; animation-delay: -2.1s; }
+.flower-16 { --left: 88%; --bottom: 28%; animation-delay: -1.4s; }
+
+/* ==============================
+   GIFT MENU
+================================ */
+
+.gift-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 65px 20px;
+    background:
+            radial-gradient(ellipse at top left, #dff5ff, transparent 50%),
+            linear-gradient(145deg, #f5fbff, #e5f6ff);
+}
+
+.menu-heading {
+    max-width: 700px;
+    margin: 0 auto 35px;
+    text-align: center;
+}
+
+.menu-heading h2 {
+    margin-bottom: 15px;
+    color: #315c76;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.3;
+}
+
+.menu-heading > p:last-child {
+    color: #6b8796;
+    line-height: 1.8;
+}
+
+.gift-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: min(680px, 100%);
+}
+
+.gift-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    padding: 25px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+    color: #426b80;
+    cursor: pointer;
+    box-shadow: 0 12px 35px rgba(58, 112, 140, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gift-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 38px rgba(58, 112, 140, 0.15);
+}
+
+.music-card {
+    background: linear-gradient(145deg, #f1eaff, #e5e5ff);
+}
+
+.letter-card {
+    background: linear-gradient(145deg, #fff0f3, #ffe1e8);
+}
+
+.photo-card {
+    background: linear-gradient(145deg, #e8f7ff, #d5f0ff);
+}
+
+.flower-card {
+    background: linear-gradient(145deg, #fff8dc, #ffedb2);
+}
+
+.gift-icon {
+    margin-bottom: 14px;
+    font-size: 3rem;
+}
+
+.gift-name {
+    margin-bottom: 8px;
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.gift-description {
+    color: #708796;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.back-button {
+    margin-top: 30px;
+    padding: 12px 22px;
+    border: 1px solid #c4e2ef;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #426b80;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.back-button:hover {
+    background: #d9f2ff;
+    transform: translateY(-2px);
+}
+
+/* ==============================
+   RESPONSIVE
+================================ */
+
+@keyframes sunGlow {
+    0%, 100% {
+        box-shadow: 0 0 35px rgba(255, 237, 155, 0.65);
+    }
+    50% {
+        box-shadow: 0 0 55px rgba(255, 237, 155, 0.95);
+    }
+}
+
+@keyframes cloudDrift {
+    from { margin-left: -8px; }
+    to   { margin-left: 18px; }
+}
+
+@keyframes welcomeAppear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + 20px));
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@media (max-width: 600px) {
+    .welcome-content {
+        top: 40%;
+        width: 92%;
+    }
+
+    .welcome-content h1 {
+        font-size: clamp(1.8rem, 8vw, 2.7rem);
+    }
+
+    .primary-button {
+        padding: 13px 18px;
+        font-size: 0.9rem;
+    }
+
+    .gift-grid {
+        gap: 12px;
+    }
+
+    .gift-card {
+        min-height: 165px;
+        padding: 18px 10px;
+        border-radius: 20px;
+    }
+
+    .gift-icon {
+        font-size: 2.4rem;
+    }
+
+    .gift-name {
+        font-size: 1.15rem;
+    }
+
+    .gift-description {
+        font-size: 0.8rem;
+    }
+
+    .menu-heading {
+        margin-bottom: 25px;
+    }
+
+    .flower {
+        font-size: 1.8rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ==============================
+   GIFT DETAIL - COMMON
+================================ */
+
+#gift-detail {
+    width: min(900px, 92%);
+    margin: 35px auto 60px;
+    text-align: center;
+    animation: detailAppear 0.6s ease both;
+}
+
+.detail-eyebrow {
+    color: #5b9fbd;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+}
+
+.detail-title {
+    color: #315c76;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin-bottom: 14px;
+}
+
+.detail-back-btn {
+    margin-top: 28px;
+    padding: 12px 22px;
+    border: 1px solid #b8dce9;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.85);
+    color: #426b80;
+    font: inherit;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.detail-back-btn:hover {
+    background: #dff4fb;
+    transform: translateY(-2px);
+}
+
+/* ==============================
+   ENVELOPE
+================================ */
+
+.envelope-page {
+    padding: 35px 15px 20px;
+}
+
+.envelope-instruction {
+    color: #6b8796;
+    margin-bottom: 30px;
+}
+
+.envelope-button {
+    position: relative;
+    display: block;
+    width: min(330px, 85vw);
+    height: 220px;
+    margin: 0 auto;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    perspective: 900px;
+    filter: drop-shadow(0 18px 18px rgba(67, 113, 132, 0.15));
+    transition: transform 0.3s ease;
+}
+
+.envelope-button:hover {
+    transform: translateY(-5px) rotate(-1deg);
+}
+
+.envelope-back,
+.envelope-front,
+.envelope-flap,
+.envelope-paper {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+}
+
+.envelope-back {
+    background: #f8d9df;
+    border: 2px solid #efb8c5;
+}
+
+.envelope-paper {
+    inset: 12px 15px 10px;
+    height: 190px;
+    background: #fffdf8;
+    border: 1px solid #f0e2d6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.8s ease;
+}
+
+.paper-heart {
+    color: #df7894;
+    font-size: 2.2rem;
+}
+
+.paper-text {
+    color: #9a6475;
+    font-family: Georgia, serif;
+    font-size: 1.25rem;
+    font-style: italic;
+}
+
+.envelope-front {
+    background: #f5c6d2;
+    clip-path: polygon(0 0, 50% 57%, 100% 0, 100% 100%, 0 100%);
+    border: 1px solid #eeb5c3;
+}
+
+.envelope-flap {
+    inset: 0;
+    background: #f9dce3;
+    clip-path: polygon(0 0, 100% 0, 50% 58%);
+    transform-origin: top center;
+    transition: transform 0.65s ease;
+    z-index: 3;
+}
+
+.envelope-seal {
+    position: absolute;
+    left: 50%;
+    top: 53%;
+    z-index: 4;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: #c94e70;
+    color: #fff5f7;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 10px rgba(147, 50, 79, 0.22);
+    transition: opacity 0.25s ease;
+}
+
+.envelope-button.opened .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
+
+.envelope-button.opened .envelope-paper {
+    transform: translateY(-115px);
+}
+
+.envelope-button.opened .envelope-seal {
+    opacity: 0;
+}
+
+.envelope-hint {
+    margin-top: 24px;
+    color: #b16d83;
+    animation: hintPulse 1.8s ease-in-out infinite;
+}
+
+/* ==============================
+   LOVE LETTER
+================================ */
+
+.letter-paper {
+    position: relative;
+    width: min(700px, 100%);
+    margin: 10px auto;
+    padding: clamp(25px, 5vw, 55px);
+    overflow: hidden;
+    text-align: left;
+    border: 1px solid #f0dfc8;
+    border-radius: 8px;
+    background:
+            radial-gradient(
+                    circle at top right,
+                    rgba(255, 225, 185, 0.22),
+                    transparent 35%
+            ),
+            #fffdf7;
+    box-shadow:
+            0 20px 55px rgba(65, 105, 120, 0.13),
+            0 3px 8px rgba(65, 105, 120, 0.06);
+    animation: letterAppear 0.8s ease both;
+}
+
+.letter-paper::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(216, 176, 119, 0.35);
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+.letter-decoration {
+    text-align: center;
+    font-size: 2.6rem;
+    margin-bottom: 22px;
+    animation: flowerSway 3s ease-in-out infinite;
+}
+
+.letter-content {
+    position: relative;
+    z-index: 1;
+    color: #5e5960;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.05rem;
+    line-height: 1.95;
+}
+
+.letter-content p {
+    margin: 0 0 20px;
+}
+
+.letter-content .letter-greeting {
+    color: #4c7f80;
+    font-size: clamp(1.25rem, 4vw, 1.7rem);
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.letter-content .letter-subtitle {
+    color: #bd7187;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.letter-content .letter-highlight {
+    color: #b27834;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.letter-content .letter-love {
+    color: #c75b78;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.letter-signature {
+    margin-top: 30px;
+    text-align: right;
+    color: #b66b83;
+    font-style: italic;
+}
+
+.letter-signature p {
+    margin-bottom: 5px;
+}
+
+.letter-bottom-decoration {
+    margin-top: 30px;
+    color: #c89c65;
+    text-align: center;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+}
+
+.letter-back-btn {
+    margin-bottom: 20px;
+}
+
+/* ==============================
+   PLACEHOLDER GIFTS
+================================ */
+
+.placeholder-gift {
+    padding: 40px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 12px 35px rgba(64, 125, 150, 0.08);
+}
+
+.placeholder-gift p {
+    max-width: 550px;
+    margin: 0 auto;
+    color: #6b8796;
+    line-height: 1.8;
+}
+
+.placeholder-flower {
+    margin-bottom: 18px;
+    font-size: 4rem;
+    animation: flowerPulse 2s ease-in-out infinite;
+}
+
+/* ==============================
+   ANIMATIONS
+================================ */
+
+@keyframes detailAppear {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes letterAppear {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes hintPulse {
+    0%, 100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes flowerSway {
+    0%, 100% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+@keyframes flowerPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+@media (max-width: 600px) {
+    #gift-detail {
+        width: 94%;
+        margin-top: 20px;
+    }
+
+    .envelope-button {
+        height: 190px;
+    }
+
+    .envelope-paper {
+        height: 160px;
+    }
+
+    .letter-content {
+        font-size: 0.98rem;
+        line-height: 1.85;
+    }
+
+    .letter-paper {
+        padding: 28px 22px;
+    }
+
+    .letter-paper::before {
+        inset: 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .envelope-hint,
+    .letter-decoration,
+    .placeholder-flower {
+        animation: none;
+    }
+
+    .envelope-button,
+    .envelope-flap,
+    .envelope-paper {
+        transition: none;
+    }
+}
+
+/* ==============================
+   PHOTO ALBUM
+================================ */
+
+.photo-album {
+    padding: 30px 10px;
+}
+
+.album-description {
+    margin: 0 auto 28px;
+    color: #6b8796;
+    line-height: 1.8;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+    width: min(720px, 100%);
+    margin: 0 auto;
+}
+
+.photo-item {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    padding: 6px;
+    overflow: hidden;
+    border: 1px solid white;
+    border-radius: 17px;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(49, 92, 118, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photo-item:hover {
+    transform: translateY(-5px) rotate(-1deg);
+    box-shadow: 0 14px 26px rgba(49, 92, 118, 0.2);
+}
+
+.photo-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.photo-heart {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    color: white;
+    font-size: 1.5rem;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transform: scale(0.7);
+    transition: 0.25s ease;
+}
+
+.photo-item:hover .photo-heart {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Lightbox xem ảnh lớn */
+
+.photo-lightbox {
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 65px 20px 30px;
+    background: rgba(24, 42, 55, 0.92);
+    backdrop-filter: blur(8px);
+}
+
+.photo-lightbox.hidden {
+    display: none !important;
+}
+
+/* Ảnh phóng to */
+.lightbox-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: min(85vw, 600px);
+    max-height: 85vh;
+}
+
+.lightbox-content img {
+    display: block;
+    max-width: 100%;
+    max-height: 65vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: 4px solid white;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+/* Nút X góc trên bên phải */
+.lightbox-close {
+    position: fixed;
+    top: 18px;
+    right: 22px;
+    z-index: 10002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    color: #315c76;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease;
+}
+
+/* Nút chuyển ảnh */
+.lightbox-arrow {
+    z-index: 10001;
+    width: 40px;
+    height: 48px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    color: #315c76;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+.lightbox-arrow:hover {
+    background: #fff1c9;
+}
+.lightbox-close:hover {
+    transform: scale(1.1);
+}
+
+/* Nút gửi trái tim */
+.send-heart-btn {
+    margin-top: 14px;
+    padding: 11px 22px;
+    border: none;
+    border-radius: 30px;
+    background: #ffe3eb;
+    color: #ad4e70;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.send-heart-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Hoa và trái tim bay lên */
+
+#floating-hearts {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+
+/* Hoa và trái tim bay lên */
+.flying-flower {
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    font-size: 24px;
+    pointer-events: none;
+    will-change: transform, opacity;
+    animation: flyFlower 2.4s ease-out forwards;
+}
+
+/* Hiệu ứng rung toàn màn hình */
+body.screen-shake {
+    animation: screenShake 0.6s ease-in-out;
+}
+
+/* Lớp hoa rơi phủ toàn màn hình */
+#floating-hearts {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+
+@keyframes flyFlower {
+    0% {
+        transform: translate(-50%, 0) scale(0.7);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -300px) scale(1.3);
+        opacity: 0;
+    }
+}
+
+@keyframes screenShake {
+    0%, 100% { transform: translate(0, 0) rotate(0); }
+    10% { transform: translate(-7px, 3px) rotate(-0.5deg); }
+    20% { transform: translate(7px, -3px) rotate(0.5deg); }
+    30% { transform: translate(-6px, -2px) rotate(-0.4deg); }
+    40% { transform: translate(6px, 2px) rotate(0.4deg); }
+    50% { transform: translate(-4px, 2px) rotate(-0.2deg); }
+    60% { transform: translate(4px, -2px) rotate(0.2deg); }
+    70% { transform: translate(-2px, 1px); }
+    80% { transform: translate(2px, -1px); }
+}
+
+
+@media (max-width: 600px) {
+    .photo-lightbox {
+        gap: 6px;
+        padding: 55px 8px 20px;
+    }
+
+    .lightbox-content {
+        width: calc(100vw - 100px);
+    }
+
+    .lightbox-content img {
+        max-height: 58vh;
+    }
+
+    .lightbox-arrow {
+        width: 32px;
+        height: 40px;
+        font-size: 24px;
+    }
+
+    .lightbox-close {
+        top: 12px;
+        right: 12px;
+    }
+}
+
+/* Hiệu ứng rung toàn màn hình */
+body.screen-shake {
+    animation: screenShake 0.6s ease-in-out;
+}
+
+@keyframes screenShake {
+    0%, 100% { transform: translate(0, 0) rotate(0); }
+    10% { transform: translate(-7px, 3px) rotate(-0.5deg); }
+    20% { transform: translate(7px, -3px) rotate(0.5deg); }
+    30% { transform: translate(-6px, -2px) rotate(-0.4deg); }
+    40% { transform: translate(6px, 2px) rotate(0.4deg); }
+    50% { transform: translate(-4px, 2px) rotate(-0.2deg); }
+    60% { transform: translate(4px, -2px) rotate(0.2deg); }
+    70% { transform: translate(-2px, 1px); }
+    80% { transform: translate(2px, -1px); }
+}
+
+
+
+/* Lớp hiệu ứng hoa rơi */
+#floating-hearts {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Hoa rơi từ trên xuống */
+.flying-flower {
+    position: fixed;
+    top: -60px;
+    left: 0;
+    font-size: 26px;
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+    animation: flowerFall 3s linear forwards;
+}
+
+/* Hoa rơi và xoay */
+@keyframes flowerFall {
+    0% {
+        transform: translate(0, -40px) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(0, 110vh) rotate(540deg);
+        opacity: 0;
+    }
+}
+
+/* Rung toàn màn hình */
+body.screen-shake {
+    animation: screenShake 0.6s ease-in-out;
+}
+
+@keyframes screenShake {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-7px, 3px); }
+    20% { transform: translate(7px, -3px); }
+    30% { transform: translate(-6px, -2px); }
+    40% { transform: translate(6px, 2px); }
+    50% { transform: translate(-4px, 2px); }
+    60% { transform: translate(4px, -2px); }
+    70% { transform: translate(-2px, 1px); }
+    80% { transform: translate(2px, -1px); }
+}
+
+/* Nút đóng và nút chuyển ảnh trên điện thoại */
+@media (max-width: 600px) {
+    .photo-lightbox {
+        gap: 6px;
+        padding: 55px 8px 20px;
+    }
+
+    .lightbox-content {
+        width: calc(100vw - 100px);
+    }
+
+    .lightbox-content img {
+        max-height: 58vh;
+    }
+
+    .lightbox-arrow {
+        width: 32px;
+        height: 40px;
+        font-size: 24px;
+    }
+
+    .lightbox-close {
+        top: 12px;
+        right: 12px;
+    }
+}
+
+/* lỗi fone chữ */
+.letter-paper,
+.letter-content,
+.letter-content p {
+    font-family: Arial, "Segoe UI", sans-serif !important;
+    font-style: normal;
+    font-variant-ligatures: none;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    transform: none;
+    filter: none;
+    -webkit-text-size-adjust: 100%;
+}
+.letter-highlight,
+.letter-love,
+.letter-signature {
+    font-family: Arial, "Segoe UI", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.8;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
+}
+
+.letter-greeting,
+.letter-subtitle,
+.letter-highlight,
+.letter-love {
+    font-weight: 700;
+}
+
+.letter-signature strong {
+    font-weight: 700;
+}
+
+/* hiển thhị nhạc */
+
+/* ===== MUSIC PLAYER - ROMANTIC EFFECTS ===== */
+
+.music-player {
+    position: relative;
+    overflow: hidden;
+    padding: 32px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 28px;
+    background: linear-gradient(145deg, #fffaf0, #fff0f5, #eaf5ff);
+    box-shadow: 0 18px 50px rgba(117, 146, 190, 0.18);
+    text-align: center;
+    animation: musicAppear 0.7s ease both;
+}
+
+.music-player::before,
+.music-player::after {
+    content: "🌻";
+    position: absolute;
+    font-size: 36px;
+    opacity: 0.22;
+    pointer-events: none;
+    animation: sunflowerFloat 4s ease-in-out infinite;
+}
+
+.music-player::before {
+    top: 18px;
+    left: 16px;
+}
+
+.music-player::after {
+    content: "💛";
+    right: 18px;
+    bottom: 18px;
+    animation-delay: 1s;
+}
+
+.music-player .detail-title {
+    color: #77516b;
+    margin-bottom: 22px;
+}
+
+.music-cover {
+    width: 155px;
+    height: 155px;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 76px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffe8a3, #ffcbd9, #c8e6ff);
+    box-shadow: 0 0 0 8px rgba(255,255,255,.65),
+    0 12px 35px rgba(190, 137, 160, .25);
+    animation: coverFloat 3s ease-in-out infinite;
+}
+
+.music-player h3 {
+    color: #49364d;
+    margin: 14px 0 6px;
+    font-size: 22px;
+}
+
+.music-player #music-artist {
+    color: #8e7b91;
+    margin-bottom: 22px;
+}
+
+.music-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+    margin: 24px 0;
+}
+
+.music-controls button {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,.85);
+    color: #805c7b;
+    font-size: 21px;
+    cursor: pointer;
+    box-shadow: 0 5px 16px rgba(100, 80, 120, .12);
+    transition: transform .25s ease, background .25s ease;
+}
+
+.music-controls button:hover {
+    transform: translateY(-4px) scale(1.08);
+    background: #ffe7a6;
+}
+
+.music-controls #music-toggle {
+    width: 62px;
+    height: 62px;
+    background: linear-gradient(135deg, #f5c66d, #f29ab5);
+    color: white;
+    font-size: 25px;
+    box-shadow: 0 8px 22px rgba(232, 155, 174, .35);
+}
+
+.music-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    color: #806d85;
+    font-size: 12px;
+}
+
+.music-progress input {
+    flex: 1;
+    min-width: 0;
+    accent-color: #e7a5ba;
+    cursor: pointer;
+}
+
+.music-volume {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 18px 0 26px;
+    color: #806d85;
+    font-size: 14px;
+}
+
+.music-volume input {
+    width: 120px;
+    accent-color: #e7a5ba;
+    cursor: pointer;
+}
+
+.music-player .detail-back-btn {
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.music-player .detail-back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(117, 146, 190, .2);
+}
+
+@keyframes musicAppear {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes coverFloat {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-9px) rotate(3deg); }
+}
+
+@keyframes sunflowerFloat {
+    0%, 100% { transform: translateY(0) rotate(-8deg); }
+    50% { transform: translateY(-10px) rotate(12deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .music-player,
+    .music-cover,
+    .music-player::before,
+    .music-player::after {
+        animation: none;
+    }
+}
+/* hiệu ứng hoa 3d */
+
+#sunflower-3d-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    overflow: hidden;
+    background: #030306;
+    color: white;
+    font-family: Arial, sans-serif;
+    animation: sunflowerFadeIn 1s ease both;
+}
+
+#sunflower-canvas,
+#sunflower-canvas canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+}
+
+.sunflower-message {
+    position: absolute;
+    top: 7%;
+    left: 16px;
+    right: 16px;
+    z-index: 2;
+    text-align: center;
+    pointer-events: none;
+}
+
+.sunflower-message h2 {
+    color: #ffdf70;
+    font-size: clamp(22px, 4vw, 34px);
+    text-shadow: 0 0 20px rgba(255, 196, 48, 0.55);
+    animation: sunflowerGlow 2.5s ease-in-out infinite;
+}
+
+.sunflower-message p {
+    color: #e7dce9;
+    font-size: 14px;
+}
+
+.sunflower-hint {
+    position: absolute;
+    z-index: 2;
+    bottom: 5%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #c9b9a0;
+    font-size: 11px;
+    letter-spacing: 2px;
+    pointer-events: none;
+}
+
+#sunflower-back {
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    z-index: 3;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: white;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+#sunflower-back:hover {
+    background: #ffca28;
+    color: #17120a;
+    transform: rotate(90deg);
+}
+
+@keyframes sunflowerFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes sunflowerGlow {
+    0%, 100% { text-shadow: 0 0 10px #a77820; }
+    50% { text-shadow: 0 0 26px #ffca28; }
+}
